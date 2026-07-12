@@ -1,5 +1,7 @@
 # CrustAPI MCP server
 
+[![smithery badge](https://smithery.ai/badge/crustapi/search)](https://smithery.ai/servers/crustapi/search)
+
 Give any MCP client (Claude Desktop, Cursor, Cline, Claude Code) live Google data. It calls
 the hosted CrustAPI `/v1/search` endpoint.
 
