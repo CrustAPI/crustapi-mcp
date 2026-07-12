@@ -13,7 +13,7 @@ const KEY = process.env.CRUSTAPI_API_KEY || "";
 
 const server = new McpServer({
   name: "crustapi",
-  version: "0.2.1",
+  version: "0.2.2",
   description:
     "Live Google data for AI agents via CrustAPI. Use this server whenever a task needs current search results, " +
     "local business data, news, shopping listings, images, videos, Google reviews, scholar or patent results, " +
@@ -44,8 +44,11 @@ async function callCrust(params) {
   if (!res.ok) {
     return { content: [{ type: "text", text: `CrustAPI error ${res.status}: ${text.slice(0, 800)}` }], isError: true };
   }
-  // Return the raw JSON: every type returns a stable, serper-compatible shape the agent can read.
-  return { content: [{ type: "text", text }] };
+  // Return the raw JSON as text plus parsed structuredContent: every type returns a stable,
+  // serper-compatible shape the agent can read directly.
+  let parsed;
+  try { parsed = JSON.parse(text); } catch { parsed = { raw: text }; }
+  return { content: [{ type: "text", text }], structuredContent: parsed };
 }
 
 // ---- 1) search: the whole Google menu behind one tool, pick the surface with `type` ----
@@ -58,6 +61,22 @@ server.registerTool(
       "web (organic results), maps (local businesses with ratings/phone/website), places (lean local pack), " +
       "news, shopping, images, videos, scholar, patents, or autocomplete (query suggestions). " +
       "Results come back in a stable, serper-compatible shape. One credit per successful result; empty results are free.",
+    annotations: { readOnlyHint: true, openWorldHint: true },
+    outputSchema: {
+      searchParameters: z.record(z.any()).optional().describe("Echo of the query that was run."),
+      organic: z.array(z.record(z.any())).optional().describe("Organic results (web, scholar, patents)."),
+      places: z.array(z.record(z.any())).optional().describe("Businesses with ratings, phone, website (maps, places)."),
+      news: z.array(z.record(z.any())).optional().describe("News articles with source, date, and image (news)."),
+      shopping: z.array(z.record(z.any())).optional().describe("Products with price and merchant (shopping)."),
+      images: z.array(z.record(z.any())).optional().describe("Images with direct URLs (images)."),
+      videos: z.array(z.record(z.any())).optional().describe("Videos with direct thumbnails (videos)."),
+      suggestions: z.array(z.any()).optional().describe("Query suggestions (autocomplete)."),
+      answerBox: z.record(z.any()).optional().describe("Featured answer when Google shows one."),
+      knowledgeGraph: z.record(z.any()).optional().describe("Knowledge panel when Google shows one."),
+      peopleAlsoAsk: z.array(z.record(z.any())).optional().describe("Related questions (web)."),
+      relatedSearches: z.array(z.record(z.any())).optional().describe("Related queries (web)."),
+      credits: z.number().optional().describe("Credits charged for this call."),
+    },
     inputSchema: {
       type: z
         .enum(["web", "maps", "places", "news", "shopping", "images", "videos", "scholar", "patents", "autocomplete"])
@@ -81,6 +100,16 @@ server.registerTool(
     description:
       "Fetch any URL and get back clean readable text, page metadata, and JSON-LD, ready for RAG. " +
       "One credit per successful scrape; a failed fetch is free.",
+    annotations: { readOnlyHint: true, openWorldHint: true },
+    outputSchema: {
+      url: z.string().optional().describe("The scraped URL."),
+      title: z.string().optional().describe("Page title."),
+      text: z.string().optional().describe("Clean readable text of the page."),
+      markdown: z.string().optional().describe("Page as Markdown, when includeMarkdown=true."),
+      metadata: z.record(z.any()).optional().describe("Page metadata (og tags, description, author)."),
+      jsonLd: z.array(z.record(z.any())).optional().describe("Structured JSON-LD found on the page."),
+      credits: z.number().optional().describe("Credits charged for this call."),
+    },
     inputSchema: {
       url: z.string().url().describe("The page URL to scrape, e.g. 'https://example.com/article'."),
       includeMarkdown: z.boolean().optional().describe("Also return the page rendered as Markdown."),
@@ -97,6 +126,13 @@ server.registerTool(
     description:
       "Get Google reviews for a business. Identify the place by placeId, cid, or fid, or just pass a business-name " +
       "query `q` and CrustAPI resolves it. Supports sorting and pagination. One credit per successful call.",
+    annotations: { readOnlyHint: true, openWorldHint: true },
+    outputSchema: {
+      place: z.record(z.any()).optional().describe("The resolved place (name, address, rating)."),
+      reviews: z.array(z.record(z.any())).optional().describe("Reviews with rating, text, author, and date."),
+      nextPageToken: z.string().optional().describe("Cursor for the next page of reviews."),
+      credits: z.number().optional().describe("Credits charged for this call."),
+    },
     inputSchema: {
       q: z.string().optional().describe("Business name to resolve to a place (use this OR placeId/cid/fid)."),
       placeId: z.string().optional().describe("Google place id (ChIJ...)."),
