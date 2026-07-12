@@ -4,26 +4,36 @@
   "display_name": "CrustAPI Google Search",
   "version": "0.2.1",
   "description": "Live Google data for AI agents: web, Maps, news, images, reviews + 7 more. Pay only for results.",
-  "author": { "name": "CrustAPI", "url": "https://crustapi.com" },
+  "author": {
+    "name": "CrustAPI",
+    "url": "https://crustapi.com"
+  },
   "homepage": "https://crustapi.com",
-  "repository": { "type": "git", "url": "https://github.com/88bricks/crustapi-mcp" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/88bricks/crustapi-mcp"
+  },
   "license": "MIT",
   "server": {
     "type": "node",
     "entry_point": "server.mjs",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/server.mjs"],
-      "env": { "CRUSTAPI_API_KEY": "${user_config.crustapi_api_key}" }
+      "args": [
+        "${__dirname}/server.mjs"
+      ],
+      "env": {
+        "CRUSTAPI_API_KEY": "${user_config.crustapi_api_key}"
+      }
     }
   },
   "user_config": {
     "crustapi_api_key": {
       "type": "string",
       "title": "CrustAPI API Key",
-      "description": "Get one free at crustapi.com (3,000 credits/month, no card)",
+      "description": "Get one free at crustapi.com (3,000 credits/month, no card). Tools return a friendly pointer if it's missing.",
       "sensitive": true,
-      "required": true
+      "required": false
     }
   }
 }
