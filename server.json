@@ -6,7 +6,7 @@
   "version": "0.2.1",
   "websiteUrl": "https://crustapi.com",
   "repository": {
-    "url": "https://github.com/88bricks/crustapi-mcp",
+    "url": "https://github.com/crustapi/crustapi-mcp",
     "source": "github"
   },
   "packages": [
