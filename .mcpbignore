@@ -1,0 +1,5 @@
+.git/
+.gitignore
+test-client.mjs
+server.json
+.mcpbignore
