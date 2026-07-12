@@ -5,10 +5,10 @@ the hosted CrustAPI `/v1/search` endpoint.
 
 ## Tools
 
-- **`search`** — the whole Google menu behind one tool. Pick the surface with `type`: `web`,
+- `search` covers the whole Google menu behind one tool. Pick the surface with `type`: `web`,
   `maps`, `places`, `news`, `shopping`, `images`, `videos`, `scholar`, `patents`, `autocomplete`.
-- **`scrape_webpage`** — fetch any URL as clean text + metadata + JSON-LD (RAG-ready).
-- **`get_reviews`** — Google reviews for a business (by `placeId`/`cid`/`fid` or a name query).
+- `scrape_webpage` fetches any URL as clean text + metadata + JSON-LD (RAG-ready).
+- `get_reviews` pulls Google reviews for a business (by `placeId`/`cid`/`fid` or a name query).
 
 You only pay for successful results; empty results are free. Get a free key (3,000 credits/month,
 no card) at **https://crustapi.com**.
@@ -53,7 +53,7 @@ npm install
 
 | var | purpose |
 |---|---|
-| `CRUSTAPI_API_KEY` | your CrustAPI key (sent as `x-api-key`) — **required** |
+| `CRUSTAPI_API_KEY` | your CrustAPI key, sent as `x-api-key` (required) |
 | `CRUSTAPI_BASE_URL` | defaults to `https://crustapi.com`; point at a local URL for testing |
 
 ## Examples an agent can run
