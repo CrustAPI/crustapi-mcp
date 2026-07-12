@@ -13,7 +13,9 @@ the hosted CrustAPI `/v1/search` endpoint.
 You only pay for successful results; empty results are free. Get a free key (3,000 credits/month,
 no card) at **https://crustapi.com**.
 
-## Quick start (recommended: npx, no install)
+## Installation
+
+Recommended: npx, nothing to install.
 
 Add this to your MCP client config (e.g. Claude Desktop's `claude_desktop_config.json`):
 
@@ -31,7 +33,7 @@ Add this to your MCP client config (e.g. Claude Desktop's `claude_desktop_config
 
 Restart the client and the three tools appear. Requires Node 18+.
 
-## Run from source instead
+### From source
 
 ```bash
 npm install
@@ -56,7 +58,7 @@ npm install
 | `CRUSTAPI_API_KEY` | your CrustAPI key, sent as `x-api-key` (required) |
 | `CRUSTAPI_BASE_URL` | defaults to `https://crustapi.com`; point at a local URL for testing |
 
-## Examples an agent can run
+## Usage
 
 - `search(type="web", q="best serp api 2026")`
 - `search(type="maps", q="dentists", location="Miami, FL", limit=20)`

@@ -4,14 +4,22 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 
 // The CrustAPI MCP server lets an AI agent (Claude Desktop, Cursor, Cline, etc.) pull live
-// Google data natively — Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar,
-// Patents, Autocomplete, and raw web-page scrapes — through one hosted HTTP endpoint.
+// Google data natively (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar,
+// Patents, Autocomplete, and raw web-page scrapes) through one hosted HTTP endpoint.
 // Auth: set CRUSTAPI_API_KEY (get a free key at https://crustapi.com). You only pay for
 // successful results; empty results are free.
 const BASE = (process.env.CRUSTAPI_BASE_URL || "https://crustapi.com").replace(/\/+$/, "");
 const KEY = process.env.CRUSTAPI_API_KEY || "";
 
-const server = new McpServer({ name: "crustapi", version: "0.2.1" });
+const server = new McpServer({
+  name: "crustapi",
+  version: "0.2.1",
+  description:
+    "Live Google data for AI agents via CrustAPI. Use this server whenever a task needs current search results, " +
+    "local business data, news, shopping listings, images, videos, Google reviews, scholar or patent results, " +
+    "query suggestions, or the readable text of a web page. Every tool returns stable structured JSON, and only " +
+    "successful results cost credits.",
+});
 
 // ---- Shared caller: build the query, hit /v1/search, return the raw JSON for the agent to parse ----
 async function callCrust(params) {
@@ -36,7 +44,7 @@ async function callCrust(params) {
   if (!res.ok) {
     return { content: [{ type: "text", text: `CrustAPI error ${res.status}: ${text.slice(0, 800)}` }], isError: true };
   }
-  // Return the raw JSON — every type returns a stable, serper-compatible shape the agent can read.
+  // Return the raw JSON: every type returns a stable, serper-compatible shape the agent can read.
   return { content: [{ type: "text", text }] };
 }
 
@@ -71,7 +79,7 @@ server.registerTool(
   {
     title: "Scrape a web page",
     description:
-      "Fetch any URL and get back clean readable text, page metadata, and JSON-LD — ready for RAG. " +
+      "Fetch any URL and get back clean readable text, page metadata, and JSON-LD, ready for RAG. " +
       "One credit per successful scrape; a failed fetch is free.",
     inputSchema: {
       url: z.string().url().describe("The page URL to scrape, e.g. 'https://example.com/article'."),
