@@ -1,7 +1,9 @@
 # CrustAPI MCP server
 
 Give any MCP client (Claude Desktop, Cursor, Cline, Claude Code) live Google data. It calls
-the hosted CrustAPI `/v1/search` endpoint and exposes three tools:
+the hosted CrustAPI `/v1/search` endpoint.
+
+## Tools
 
 - **`search`** — the whole Google menu behind one tool. Pick the surface with `type`: `web`,
   `maps`, `places`, `news`, `shopping`, `images`, `videos`, `scholar`, `patents`, `autocomplete`.

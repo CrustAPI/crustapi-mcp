@@ -1,6 +1,7 @@
 {
   "name": "crustapi-mcp",
-  "version": "0.2.0",
+  "mcpName": "com.crustapi/search",
+  "version": "0.2.1",
   "type": "module",
   "description": "MCP server for CrustAPI \u2014 let AI agents pull live Google data (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar, Patents, Autocomplete, and web-page scrapes).",
   "bin": {
@@ -8,7 +9,8 @@
   },
   "files": [
     "server.mjs",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "mcp",
