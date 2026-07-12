@@ -1,0 +1,41 @@
+{
+  "name": "crustapi-mcp",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "MCP server for CrustAPI \u2014 let AI agents pull live Google data (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar, Patents, Autocomplete, and web-page scrapes).",
+  "bin": {
+    "crustapi-mcp": "server.mjs"
+  },
+  "files": [
+    "server.mjs",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "crustapi",
+    "google-search-api",
+    "serp-api",
+    "google-maps-api",
+    "web-scraping",
+    "ai-agents",
+    "claude",
+    "cursor"
+  ],
+  "homepage": "https://crustapi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/88bricks/crustapi-mcp.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "bugs": {
+    "url": "https://github.com/88bricks/crustapi-mcp/issues"
+  }
+}
