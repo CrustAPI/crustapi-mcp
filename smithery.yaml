@@ -1,0 +1,16 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - crustapiApiKey
+    properties:
+      crustapiApiKey:
+        type: string
+        description: Your CrustAPI API key. Get one free at crustapi.com (3,000 credits/month, no card).
+  commandFunction: |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "crustapi-mcp"],
+      env: { CRUSTAPI_API_KEY: config.crustapiApiKey }
+    })
