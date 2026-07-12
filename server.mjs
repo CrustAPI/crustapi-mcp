@@ -11,7 +11,7 @@ import { z } from "zod";
 const BASE = (process.env.CRUSTAPI_BASE_URL || "https://crustapi.com").replace(/\/+$/, "");
 const KEY = process.env.CRUSTAPI_API_KEY || "";
 
-const server = new McpServer({ name: "crustapi", version: "0.2.0" });
+const server = new McpServer({ name: "crustapi", version: "0.2.1" });
 
 // ---- Shared caller: build the query, hit /v1/search, return the raw JSON for the agent to parse ----
 async function callCrust(params) {
