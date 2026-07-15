@@ -29,7 +29,7 @@
   "homepage": "https://crustapi.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crustapi/crustapi-mcp.git"
+    "url": "git+https://github.com/CrustAPI/crustapi-mcp.git"
   },
   "license": "MIT",
   "engines": {
@@ -40,6 +40,6 @@
     "zod": "^3.23.0"
   },
   "bugs": {
-    "url": "https://github.com/crustapi/crustapi-mcp/issues"
+    "url": "https://github.com/CrustAPI/crustapi-mcp/issues"
   }
 }
