@@ -1,9 +1,9 @@
 {
   "manifest_version": "0.3",
   "name": "crustapi-mcp",
-  "display_name": "CrustAPI Google Search",
-  "version": "0.2.2",
-  "description": "Live Google data for AI agents: web, Maps, news, images, reviews + 7 more. Pay only for results.",
+  "display_name": "CrustAPI Google + LinkedIn Data",
+  "version": "0.3.0",
+  "description": "Live Google + public LinkedIn data for AI agents: search, maps, profiles, companies, jobs, posts + more. Pay only for results.",
   "author": {
     "name": "CrustAPI",
     "url": "https://crustapi.com"

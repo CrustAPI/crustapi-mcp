@@ -2,8 +2,8 @@
 
 [![smithery badge](https://smithery.ai/badge/crustapi/search)](https://smithery.ai/servers/crustapi/search)
 
-Give any MCP client (Claude Desktop, Cursor, Cline, Claude Code) live Google data. It calls
-the hosted CrustAPI `/v1/search` endpoint.
+Give any MCP client (Claude Desktop, Cursor, Cline, Claude Code) live Google and public LinkedIn
+data. It calls the hosted CrustAPI `/v1/search` and `/v1/linkedin` endpoints.
 
 ## Tools
 
@@ -11,6 +11,9 @@ the hosted CrustAPI `/v1/search` endpoint.
   `maps`, `places`, `news`, `shopping`, `images`, `videos`, `scholar`, `patents`, `autocomplete`.
 - `scrape_webpage` fetches any URL as clean text + metadata + JSON-LD (RAG-ready).
 - `get_reviews` pulls Google reviews for a business (by `placeId`/`cid`/`fid` or a name query).
+- `linkedin` covers public LinkedIn data behind one tool. Pick the surface with `type`: `profile`,
+  `company`, `posts`, `jobs`, or `search` (people search). Add `enrich=true` on people search to
+  get each person's full profile.
 
 You only pay for successful results; empty results are free. Get a free key (3,000 credits/month,
 no card) at **https://crustapi.com**.
@@ -33,7 +36,7 @@ Add this to your MCP client config (e.g. Claude Desktop's `claude_desktop_config
 }
 ```
 
-Restart the client and the three tools appear. Requires Node 18+.
+Restart the client and the four tools appear. Requires Node 18+.
 
 ### From source
 
@@ -67,8 +70,10 @@ npm install
 - `search(type="news", q="openai")`
 - `scrape_webpage(url="https://example.com/pricing", includeMarkdown=true)`
 - `get_reviews(q="Blue Bottle Coffee", sortBy="newest")`
+- `linkedin(type="profile", url="https://www.linkedin.com/in/williamhgates")`
+- `linkedin(type="search", keywords="head of growth fintech", enrich=true)`
 
-Every response is stable, serper-compatible JSON.
+Every response is stable, structured JSON.
 
 ## Test it
 

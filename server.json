@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.crustapi/search",
-  "title": "CrustAPI Google Search",
-  "description": "Live Google data for AI agents: web, Maps, news, images, reviews + 7 more. Pay only for results.",
-  "version": "0.2.2",
+  "title": "CrustAPI Google + LinkedIn Data",
+  "description": "Live Google + public LinkedIn data for AI agents: search, maps, profiles, companies, jobs, posts + more. Pay only for results.",
+  "version": "0.3.0",
   "websiteUrl": "https://crustapi.com",
   "repository": {
     "url": "https://github.com/crustapi/crustapi-mcp",
@@ -14,7 +14,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "crustapi-mcp",
-      "version": "0.2.2",
+      "version": "0.3.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

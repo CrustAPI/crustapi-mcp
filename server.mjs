@@ -4,8 +4,9 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 
 // The CrustAPI MCP server lets an AI agent (Claude Desktop, Cursor, Cline, etc.) pull live
-// Google data natively (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar,
-// Patents, Autocomplete, and raw web-page scrapes) through one hosted HTTP endpoint.
+// Google data (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar, Patents,
+// Autocomplete, raw web-page scrapes) AND public LinkedIn data (profiles, companies, posts,
+// jobs, people search) natively through one hosted HTTP endpoint.
 // Auth: set CRUSTAPI_API_KEY (get a free key at https://crustapi.com). You only pay for
 // successful results; empty results are free.
 const BASE = (process.env.CRUSTAPI_BASE_URL || "https://crustapi.com").replace(/\/+$/, "");
@@ -13,19 +14,19 @@ const KEY = process.env.CRUSTAPI_API_KEY || "";
 
 const server = new McpServer({
   name: "crustapi",
-  version: "0.2.2",
+  version: "0.3.0",
   description:
-    "Live Google data for AI agents via CrustAPI. Use this server whenever a task needs current search results, " +
-    "local business data, news, shopping listings, images, videos, Google reviews, scholar or patent results, " +
-    "query suggestions, or the readable text of a web page. Every tool returns stable structured JSON, and only " +
-    "successful results cost credits.",
+    "Live Google and public LinkedIn data for AI agents via CrustAPI. Use this server whenever a task needs current " +
+    "search results, local business data, news, shopping listings, images, videos, Google reviews, scholar or patent " +
+    "results, query suggestions, the readable text of a web page, or public LinkedIn profiles, companies, posts, jobs, " +
+    "and people search. Every tool returns stable structured JSON, and only successful results cost credits.",
 });
 
 // ---- Shared caller: build the query, hit /v1/search, return the raw JSON for the agent to parse ----
-async function callCrust(params) {
+async function callCrust(params, path = "/v1/search") {
   const sp = new URLSearchParams();
   for (const [k, v] of Object.entries(params)) {
-    if (v === undefined || v === null || v === "") continue;
+    if (v === undefined || v === null || v === "" || v === false) continue;
     sp.set(k, String(v));
   }
   if (!KEY) {
@@ -36,7 +37,7 @@ async function callCrust(params) {
   }
   let res;
   try {
-    res = await fetch(`${BASE}/v1/search?${sp.toString()}`, { headers: { "x-api-key": KEY } });
+    res = await fetch(`${BASE}${path}?${sp.toString()}`, { headers: { "x-api-key": KEY } });
   } catch (err) {
     return { content: [{ type: "text", text: `Could not reach CrustAPI: ${String(err)}` }], isError: true };
   }
@@ -146,7 +147,42 @@ server.registerTool(
   async (args) => callCrust({ type: "reviews", ...args }),
 );
 
+// ---- 4) linkedin: public LinkedIn data (profiles, companies, posts, jobs, people) behind one tool ----
+server.registerTool(
+  "linkedin",
+  {
+    title: "Get LinkedIn data (profiles, companies, posts, jobs, people)",
+    description:
+      "Get public LinkedIn data via CrustAPI as clean structured JSON. Choose the surface with `type`: " +
+      "profile (a person's full public profile by URL, with work history, education, and a verified business email when findable), " +
+      "company (company details by URL), posts (recent posts from a profile or company URL), " +
+      "jobs (search listings by keywords + optional location, or one job's full detail by URL), or " +
+      "search (find people by keywords; add enrich=true to return each person's full profile). " +
+      "One credit per successful result; empty results are free.",
+    annotations: { readOnlyHint: true, openWorldHint: true },
+    outputSchema: {
+      profile: z.record(z.any()).optional().describe("A public profile (type=profile)."),
+      company: z.record(z.any()).optional().describe("Company details (type=company)."),
+      posts: z.array(z.record(z.any())).optional().describe("Recent posts (type=posts)."),
+      jobs: z.array(z.record(z.any())).optional().describe("Job listings, or one job's detail (type=jobs)."),
+      people: z.array(z.record(z.any())).optional().describe("People results (type=search)."),
+      creditsRemaining: z.number().optional().describe("Credits left after this call."),
+    },
+    inputSchema: {
+      type: z.enum(["profile", "company", "posts", "jobs", "search"]).describe("Which LinkedIn surface to query."),
+      url: z.string().optional().describe("A linkedin.com/in/ or /company/ URL (profile, company, posts), or a job URL (jobs)."),
+      keywords: z.string().optional().describe("Search keywords (jobs, search)."),
+      location: z.string().optional().describe("Location filter for job search (jobs)."),
+      enrich: z.boolean().optional().describe("type=search: also fetch each person's full profile (1 credit per profile)."),
+      employees: z.boolean().optional().describe("type=company: also return a sample of employees."),
+      comments: z.boolean().optional().describe("type=posts: also return per-post comment counts."),
+      limit: z.number().int().min(1).max(100).optional().describe("Max results (posts, jobs, search)."),
+    },
+  },
+  async (args) => callCrust(args, "/v1/linkedin"),
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
 // stdout is the JSON-RPC channel, so all logs must go to stderr.
-console.error("crustapi MCP server running on stdio (tools: search, scrape_webpage, get_reviews)");
+console.error("crustapi MCP server running on stdio (tools: search, scrape_webpage, get_reviews, linkedin)");
