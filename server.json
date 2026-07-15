@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.crustapi/search",
   "title": "CrustAPI Google + LinkedIn Data",
-  "description": "Live Google + public LinkedIn data for AI agents: search, maps, profiles, companies, jobs, posts + more. Pay only for results.",
+  "description": "Live Google + public LinkedIn data: search, maps, profiles, companies, jobs. Pay only for results.",
   "version": "0.3.0",
   "websiteUrl": "https://crustapi.com",
   "repository": {
