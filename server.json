@@ -3,7 +3,7 @@
   "name": "com.crustapi/search",
   "title": "CrustAPI Google + LinkedIn Data",
   "description": "Live Google + public LinkedIn data: search, maps, profiles, companies, jobs. Pay only for results.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "websiteUrl": "https://crustapi.com",
   "repository": {
     "url": "https://github.com/CrustAPI/crustapi-mcp",
@@ -14,7 +14,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "crustapi-mcp",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

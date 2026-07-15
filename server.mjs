@@ -14,7 +14,7 @@ const KEY = process.env.CRUSTAPI_API_KEY || "";
 
 const server = new McpServer({
   name: "crustapi",
-  version: "0.3.0",
+  version: "0.3.1",
   description:
     "Live Google and public LinkedIn data for AI agents via CrustAPI. Use this server whenever a task needs current " +
     "search results, local business data, news, shopping listings, images, videos, Google reviews, scholar or patent " +
@@ -154,7 +154,7 @@ server.registerTool(
     title: "Get LinkedIn data (profiles, companies, posts, jobs, people)",
     description:
       "Get public LinkedIn data via CrustAPI as clean structured JSON. Choose the surface with `type`: " +
-      "profile (a person's full public profile by URL, with work history, education, and a verified business email when findable), " +
+      "profile (a person's full public profile by URL, with work history, education, and skills), " +
       "company (company details by URL), posts (recent posts from a profile or company URL), " +
       "jobs (search listings by keywords + optional location, or one job's full detail by URL), or " +
       "search (find people by keywords; add enrich=true to return each person's full profile). " +
