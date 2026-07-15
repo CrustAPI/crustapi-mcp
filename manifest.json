@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "crustapi-mcp",
   "display_name": "CrustAPI Google + LinkedIn Data",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Live Google + public LinkedIn data for AI agents: search, maps, profiles, companies, jobs, posts + more. Pay only for results.",
   "author": {
     "name": "CrustAPI",
