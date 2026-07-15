@@ -1,9 +1,9 @@
 {
   "name": "crustapi-mcp",
   "mcpName": "com.crustapi/search",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
-  "description": "MCP server for CrustAPI. Lets AI agents pull live Google data: Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar, Patents, Autocomplete, and web-page scrapes.",
+  "description": "MCP server for CrustAPI. Lets AI agents pull live Google data (Search, Maps, News, Shopping, Images, Videos, Reviews, Scholar, Patents, Autocomplete, web-page scrapes) and public LinkedIn data (profiles, companies, posts, jobs, people search). Pay only for results.",
   "bin": {
     "crustapi-mcp": "server.mjs"
   },
@@ -19,6 +19,8 @@
     "google-search-api",
     "serp-api",
     "google-maps-api",
+    "linkedin-api",
+    "linkedin-scraper",
     "web-scraping",
     "ai-agents",
     "claude",
