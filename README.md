@@ -7,8 +7,7 @@ data. It calls the hosted CrustAPI `/v1/search` and `/v1/linkedin` endpoints.
 
 ## Tools
 
-- `search` covers the whole Google menu behind one tool. Pick the surface with `type`: `web`,
-  `maps`, `places`, `news`, `shopping`, `images`, `videos`, `scholar`, `patents`, `autocomplete`.
+- `search` accepts `maps`, `places`, `news`, `shopping`, `images`, `scholar`, `patents` and `autocomplete`. Set `type` explicitly.
 - `scrape_webpage` fetches any URL as clean text + metadata + JSON-LD (RAG-ready).
 - `get_reviews` pulls Google reviews for a business (by `placeId`/`cid`/`fid` or a name query).
 - `linkedin` covers public LinkedIn data behind one tool. Pick the surface with `type`: `profile`,
@@ -65,7 +64,6 @@ npm install
 
 ## Usage
 
-- `search(type="web", q="best serp api 2026")`
 - `search(type="maps", q="dentists", location="Miami, FL", limit=20)`
 - `search(type="news", q="openai")`
 - `scrape_webpage(url="https://example.com/pricing", includeMarkdown=true)`
@@ -73,7 +71,7 @@ npm install
 - `linkedin(type="profile", url="https://www.linkedin.com/in/williamhgates")`
 - `linkedin(type="search", keywords="head of growth fintech", enrich=true)`
 
-Every response is stable, structured JSON.
+Google Web Search and Videos were retired. Update any client prompts that still request either type.
 
 ## Test it
 

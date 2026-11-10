@@ -2,8 +2,8 @@
   "manifest_version": "0.3",
   "name": "crustapi-mcp",
   "display_name": "CrustAPI Google + LinkedIn Data",
-  "version": "0.3.1",
-  "description": "Live Google + public LinkedIn data for AI agents: search, maps, profiles, companies, jobs, posts + more. Pay only for results.",
+  "version": "0.3.4",
+  "description": "Google Maps and public LinkedIn data for AI agents. Pay only for results.",
   "author": {
     "name": "CrustAPI",
     "url": "https://crustapi.com"
@@ -31,7 +31,7 @@
     "crustapi_api_key": {
       "type": "string",
       "title": "CrustAPI API Key",
-      "description": "Get one free at crustapi.com (3,000 credits/month, no card). Tools return a friendly pointer if it's missing.",
+      "description": "Try for free at crustapi.com. No credit card required.",
       "sensitive": true,
       "required": false
     }
