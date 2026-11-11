@@ -16,8 +16,6 @@
     "mcp",
     "model-context-protocol",
     "crustapi",
-    "google-search-api",
-    "serp-api",
     "google-maps-api",
     "linkedin-api",
     "linkedin-scraper",

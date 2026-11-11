@@ -24,8 +24,8 @@ console.log("tools/list ->", tools.tools.map((t) => t.name).join(", "));
 console.log("tool schema keys ->", Object.keys(tools.tools[0].inputSchema.properties || {}).join(", "));
 
 const result = await client.callTool({
-  name: "search_local_businesses",
-  arguments: { q: "coffee", location: "Austin, TX", limit: 2 },
+  name: "search",
+  arguments: { type: "maps", q: "coffee", location: "Austin, TX", limit: 2 },
 });
 const txt = result.content[0].text;
 console.log("tools/call -> first 320 chars:\n" + txt.slice(0, 320));

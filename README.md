@@ -14,8 +14,7 @@ data. It calls the hosted CrustAPI `/v1/search` and `/v1/linkedin` endpoints.
   `company`, `posts`, `jobs`, or `search` (people search). Add `enrich=true` on people search to
   get each person's full profile.
 
-You only pay for successful results; empty results are free. Get a free key (3,000 credits/month,
-no card) at **https://crustapi.com**.
+You only pay for successful results. Empty results are free. Create an API key at **https://crustapi.com/app**.
 
 ## Installation
 
